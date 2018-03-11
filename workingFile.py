@@ -9,8 +9,8 @@ import sys
 def populate_matrices(seq1, seq2):
     scoring_matrix = [[]]
     backtrack_matrix = [[]]
-    scoring_matrix = initialise_scoring(scoring_matrix, seq1, seq2)
-    backtrack_matrix = initialise_backtrack(backtrack_matrix, seq1, seq2)
+    scoring_matrix = initialise_scoring(scoring_matrix, len(seq1), len(seq2))
+    backtrack_matrix = initialise_backtrack(backtrack_matrix, len(seq1), len(seq2))
     scoring_matrix, backtrack_matrix = create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix)
     print_matrix(scoring_matrix)
     print()
@@ -32,8 +32,8 @@ def create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix):
 
 
 def track_back(backtrack_matrix, seq1, seq2):
-    i = len(seq1)
-    j = len(seq2)
+    j = len(seq1)
+    i = len(seq2)
     fin1 = ''
     fin2 = ''
     current = backtrack_matrix[i][j]
@@ -41,18 +41,18 @@ def track_back(backtrack_matrix, seq1, seq2):
         if current == "D":
             i -= 1
             j -= 1
-            fin1 += seq1[j]
-            fin2 += seq2[i]
+            fin1 = seq1[j] + fin1
+            fin2 = seq2[i] + fin2
         elif current == "L":
             j -= 1
-            fin1 += seq1[j]
-            fin2 += '-'
+            fin1 = seq1[j] + fin1
+            fin2 = '-' + fin2
         elif current == "U":
             i -= 1
-            fin1 += '-'
-            fin2 += seq2[i]
+            fin1 = '-' + fin1
+            fin2 = seq2[i] + fin2
         current = backtrack_matrix[i][j]
-    return fin1[::-1], fin2[::-1]
+    return fin1, fin2
 
 
 def max_value(scoreD, scoreU, scoreL, backtrack_matrix, i):
@@ -75,23 +75,23 @@ def c(i, j):
     return -1
 
 
-def initialise_scoring(scoring_matrix, seq1, seq2):
+def initialise_scoring(scoring_matrix, i, j):
     value = 0
-    for i in range(len(seq1) + 1):
+    for i in range(i + 1):
         scoring_matrix[0].append(value)
         value -= 2
     value = -2
-    for i in range(len(seq2)):
+    for i in range(j):
         scoring_matrix.append([value])
         value -= 2
     return scoring_matrix
 
 
-def initialise_backtrack(backtrack_matrix, seq1, seq2):
+def initialise_backtrack(backtrack_matrix, i, j):
     backtrack_matrix[0].append("E")
-    for i in range(len(seq1)):
+    for i in range(i):
         backtrack_matrix[0].append("L")
-    for i in range(len(seq2)):
+    for i in range(j):
         backtrack_matrix.append(["U"])
     return backtrack_matrix
 
@@ -128,10 +128,10 @@ def displayAlignment(alignment):
 
 # DO NOT EDIT ------------------------------------------------
 # This opens the files, loads the sequences and starts the timer
-file1 = open('Sequence data/length8_A.txt', 'r')  # changed from original
+file1 = open('Sequence data/length20_A.txt', 'r')  # changed from original
 seq1 = file1.read()
 file1.close()
-file2 = open('Sequence data/length8_B.txt', 'r')
+file2 = open('Sequence data/length20_B.txt', 'r')
 seq2 = file2.read()
 file2.close()
 start = time.time()
