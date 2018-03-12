@@ -12,10 +12,10 @@ def populate_matrices(seq1, seq2):
     scoring_matrix = initialise_scoring(scoring_matrix, len(seq1), len(seq2))
     backtrack_matrix = initialise_backtrack(backtrack_matrix, len(seq1), len(seq2))
     scoring_matrix, backtrack_matrix = create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix)
-    print_matrix(scoring_matrix)
-    print()
-    print_matrix(backtrack_matrix)
-    print()
+    #print_matrix(scoring_matrix)
+    #print()
+    #print_matrix(backtrack_matrix)
+    #print()
 
     best_score = scoring_matrix[len(seq1)][len(seq2)]
     seq1, seq2 = track_back(backtrack_matrix, seq1, seq2)
@@ -128,10 +128,10 @@ def displayAlignment(alignment):
 
 # DO NOT EDIT ------------------------------------------------
 # This opens the files, loads the sequences and starts the timer
-file1 = open('Sequence data/length20_A.txt', 'r')  # changed from original
+file1 = open('Sequence data/length5000_A.txt', 'r')  # changed from original
 seq1 = file1.read()
 file1.close()
-file2 = open('Sequence data/length20_B.txt', 'r')
+file2 = open('Sequence data/length5000_B.txt', 'r')
 seq2 = file2.read()
 file2.close()
 start = time.time()
@@ -160,6 +160,6 @@ time_taken = stop - start
 # Print out the best
 print('Time taken: ' + str(time_taken))
 print('Best (score ' + str(best_score) + '):')
-displayAlignment(best_alignment)
+# displayAlignment(best_alignment)
 
 # -------------------------------------------------------------
