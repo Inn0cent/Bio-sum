@@ -12,10 +12,10 @@ def populateMatrices(seq1, seq2):
     scoringMatrix = initialiseScoring(scoringMatrix, seq1, seq2)
     backtrackMatrix = initialiseBacktrack(backtrackMatrix, seq1, seq2)
     scoringMatrix, backtrackMatrix = createScoring(scoringMatrix, seq1, seq2, backtrackMatrix)
-    printMatrix(scoringMatrix)
-    print()
-    printMatrix(backtrackMatrix)
-    print()
+    # printMatrix(scoringMatrix)
+    # print()
+    # printMatrix(backtrackMatrix)
+    # print()
 
     bestScore = scoringMatrix[len(seq1)][len(seq2)]
     seq1, seq2 = trackBack(backtrackMatrix, seq1, seq2)
@@ -96,11 +96,11 @@ def initialiseBacktrack(backtrackMatrix, seq1, seq2):
     return backtrackMatrix
 
 
-def printMatrix(matrix):
-    for i in range(len(matrix)):
-        for j in range(len(matrix[0])):
-            print(matrix[i][j], end=' ')
-        print()
+# def printMatrix(matrix):
+#     for i in range(len(matrix)):
+#         for j in range(len(matrix[0])):
+#             print(matrix[i][j], end=' ')
+#         print()
 
 
 # ------------------------------------------------------------
