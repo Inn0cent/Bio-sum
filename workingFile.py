@@ -77,11 +77,11 @@ def c(i, j):
 
 def initialise_scoring(scoring_matrix, i, j):
     value = 0
-    for i in range(i + 1):
+    for k in range(i + 1):
         scoring_matrix[0].append(value)
         value -= 2
     value = -2
-    for i in range(j):
+    for k in range(j):
         scoring_matrix.append([value])
         value -= 2
     return scoring_matrix
@@ -89,9 +89,9 @@ def initialise_scoring(scoring_matrix, i, j):
 
 def initialise_backtrack(backtrack_matrix, i, j):
     backtrack_matrix[0].append("E")
-    for i in range(i):
+    for k in range(i):
         backtrack_matrix[0].append("L")
-    for i in range(j):
+    for k in range(j):
         backtrack_matrix.append(["U"])
     return backtrack_matrix
 
