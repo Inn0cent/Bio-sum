@@ -17,18 +17,10 @@ def populate_matrices(seq1, seq2):
     #print_matrix(backtrack_matrix)
     #print()
 
-    best_score = scoring_matrix[len(seq1)][len(seq2)]
+    best_score = scoring_matrix[-1][-1]
     seq1, seq2 = track_back(backtrack_matrix, seq1, seq2)
 
     return seq1, seq2, best_score
-
-
-def create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix):
-    for i in range(1, len(scoring_matrix)):
-        for j in range(1, len(scoring_matrix[0])):
-            backtrack_matrix, score = max_value(c(seq1[j - 1], seq2[i - 1]) + scoring_matrix[i - 1][j - 1], scoring_matrix[i - 1][j] - 2, scoring_matrix[i][j - 1] - 2, backtrack_matrix, i)
-            scoring_matrix[i].append(score)
-    return scoring_matrix, backtrack_matrix
 
 
 def track_back(backtrack_matrix, seq1, seq2):
@@ -36,7 +28,7 @@ def track_back(backtrack_matrix, seq1, seq2):
     i = len(seq2)
     fin1 = ''
     fin2 = ''
-    current = backtrack_matrix[i][j]
+    current = backtrack_matrix[-1][-1]
     while current != "E":
         if current == "D":
             i -= 1
@@ -53,6 +45,14 @@ def track_back(backtrack_matrix, seq1, seq2):
             fin2 = seq2[i] + fin2
         current = backtrack_matrix[i][j]
     return fin1, fin2
+
+
+def create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix):
+    for i in range(1, len(scoring_matrix)):
+        for j in range(1, len(scoring_matrix[0])):
+            backtrack_matrix, score = max_value(c(seq1[j - 1], seq2[i - 1]) + scoring_matrix[i - 1][j - 1], scoring_matrix[i - 1][j] - 2, scoring_matrix[i][j - 1] - 2, backtrack_matrix, i)
+            scoring_matrix[i].append(score)
+    return scoring_matrix, backtrack_matrix
 
 
 def max_value(scoreD, scoreU, scoreL, backtrack_matrix, i):
@@ -128,10 +128,10 @@ def displayAlignment(alignment):
 
 # DO NOT EDIT ------------------------------------------------
 # This opens the files, loads the sequences and starts the timer
-file1 = open('Sequence data/length5000_A.txt', 'r')  # changed from original
+file1 = open('Sequence data/length6_A.txt', 'r')  # changed from original
 seq1 = file1.read()
 file1.close()
-file2 = open('Sequence data/length5000_B.txt', 'r')
+file2 = open('Sequence data/length6_B.txt', 'r')
 seq2 = file2.read()
 file2.close()
 start = time.time()
@@ -160,6 +160,6 @@ time_taken = stop - start
 # Print out the best
 print('Time taken: ' + str(time_taken))
 print('Best (score ' + str(best_score) + '):')
-# displayAlignment(best_alignment)
+displayAlignment(best_alignment)
 
 # -------------------------------------------------------------
