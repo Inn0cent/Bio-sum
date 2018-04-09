@@ -7,7 +7,10 @@ import sys
 # 1. Populate the scoring matrix and the backtracking matrix
 
 def populate_matrices(seq1, seq2, scoring_matrix, backtrack_matrix):
-    scoring_matrix, backtrack_matrix = create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix)
+    for i in range(1, len(scoring_matrix)):
+        for j in range(1, len(scoring_matrix[0])):
+            backtrack_matrix, score = max_value(c(seq1[j - 1], seq2[i - 1]) + scoring_matrix[i - 1][j - 1], scoring_matrix[i - 1][j] - 2, scoring_matrix[i][j - 1] - 2, backtrack_matrix, i)
+            scoring_matrix[i].append(score)
 
     best_score = scoring_matrix[-1][-1]
     seq1, seq2 = track_back(backtrack_matrix, seq1, seq2)
@@ -37,14 +40,6 @@ def track_back(backtrack_matrix, seq1, seq2):
             fin2 = seq2[i] + fin2
         current = backtrack_matrix[i][j]
     return fin1, fin2
-
-
-def create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix):
-    for i in range(1, len(scoring_matrix)):
-        for j in range(1, len(scoring_matrix[0])):
-            backtrack_matrix, score = max_value(c(seq1[j - 1], seq2[i - 1]) + scoring_matrix[i - 1][j - 1], scoring_matrix[i - 1][j] - 2, scoring_matrix[i][j - 1] - 2, backtrack_matrix, i)
-            scoring_matrix[i].append(score)
-    return scoring_matrix, backtrack_matrix
 
 
 def max_value(scoreD, scoreU, scoreL, backtrack_matrix, i):

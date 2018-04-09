@@ -86,7 +86,7 @@ def displayAlignment(alignment):
 
 # DO NOT EDIT ------------------------------------------------
 # This opens the files, loads the sequences and starts the timer
-file1 = open('Sequence data/length3_A.txt')
+file1 = open('Sequence data/length10_A.txt')
 seq1=file1.read()
 file1.close()
 file2 = open('Sequence data/length3_B.txt')
