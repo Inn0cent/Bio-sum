@@ -6,16 +6,8 @@ import sys
 # YOUR FUNCTIONS GO HERE -------------------------------------
 # 1. Populate the scoring matrix and the backtracking matrix
 
-def populate_matrices(seq1, seq2):
-    scoring_matrix = [[]]
-    backtrack_matrix = [[]]
-    scoring_matrix = initialise_scoring(scoring_matrix, len(seq1), len(seq2))
-    backtrack_matrix = initialise_backtrack(backtrack_matrix, len(seq1), len(seq2))
+def populate_matrices(seq1, seq2, scoring_matrix, backtrack_matrix):
     scoring_matrix, backtrack_matrix = create_scoring(scoring_matrix, seq1, seq2, backtrack_matrix)
-    #print_matrix(scoring_matrix)
-    #print()
-    #print_matrix(backtrack_matrix)
-    #print()
 
     best_score = scoring_matrix[-1][-1]
     seq1, seq2 = track_back(backtrack_matrix, seq1, seq2)
@@ -75,34 +67,6 @@ def c(i, j):
     return -1
 
 
-def initialise_scoring(scoring_matrix, i, j):
-    value = 0
-    for k in range(i + 1):
-        scoring_matrix[0].append(value)
-        value -= 2
-    value = -2
-    for k in range(j):
-        scoring_matrix.append([value])
-        value -= 2
-    return scoring_matrix
-
-
-def initialise_backtrack(backtrack_matrix, i, j):
-    backtrack_matrix[0].append("E")
-    for k in range(i):
-        backtrack_matrix[0].append("L")
-    for k in range(j):
-        backtrack_matrix.append(["U"])
-    return backtrack_matrix
-
-
-# def print_matrix(matrix):
-#     for i in range(len(matrix)):
-#         for j in range(len(matrix[0])):
-#             print(matrix[i][j], end=' ')
-#         print()
-
-
 # ------------------------------------------------------------
 
 
@@ -146,8 +110,34 @@ start = time.time()
 # Use the backtracking matrix to find the optimal alignment 
 # To work with the printing functions below the best alignment should be called best_alignment and its score should be called best_score. 
 
+
+def initialise_scoring(scoring_matrix, i, j):
+    value = 0
+    for k in range(i + 1):
+        scoring_matrix[0].append(value)
+        value -= 2
+    value = -2
+    for k in range(j):
+        scoring_matrix.append([value])
+        value -= 2
+    return scoring_matrix
+
+
+def initialise_backtrack(backtrack_matrix, i, j):
+    backtrack_matrix[0].append("E")
+    for k in range(i):
+        backtrack_matrix[0].append("L")
+    for k in range(j):
+        backtrack_matrix.append(["U"])
+    return backtrack_matrix
+
+scoring_matrix = [[]]
+backtrack_matrix = [[]]
+scoring_matrix = initialise_scoring(scoring_matrix, len(seq1), len(seq2))
+backtrack_matrix = initialise_backtrack(backtrack_matrix, len(seq1), len(seq2))
+
 best_alignment = []
-best1, best2, best_score = populate_matrices(seq1, seq2)
+best1, best2, best_score = populate_matrices(seq1, seq2, scoring_matrix, backtrack_matrix)
 best_alignment.append(best1)
 best_alignment.append(best2)
 
