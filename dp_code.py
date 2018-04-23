@@ -147,7 +147,7 @@ time_taken=stop-start
 # Print out the best
 print('Time taken: '+str(time_taken))
 print('Best (score '+str(best_score)+'):')
-displayAlignment(best_alignment)
+#displayAlignment(best_alignment)
 
 #-------------------------------------------------------------
 
